@@ -1,0 +1,30 @@
+name: flutter_riverpod_demo
+description: Flutter x Riverpod demo
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.1.5 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Architecture
+  flutter_riverpod: ^2.4.5
+
+  # UI
+  cupertino_icons: ^1.0.2
+
+  # Validation
+  form_validator: ^2.1.1
+
+  # Extend Dart
+  uuid: ^4.2.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+flutter:
+  uses-material-design: true
