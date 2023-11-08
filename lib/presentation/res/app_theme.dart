@@ -6,6 +6,9 @@ class AppTheme {
   static ThemeData _base(ColorScheme colorScheme) {
     return ThemeData(
       colorScheme: colorScheme,
+      snackBarTheme: const SnackBarThemeData(
+        behavior: SnackBarBehavior.floating,
+      ),
       inputDecorationTheme: const InputDecorationTheme(
         border: OutlineInputBorder(),
       ),

@@ -37,7 +37,6 @@ class _TodoCreateFormState extends ConsumerState<TodoCreateForm> {
       _titleController.clear();
     } on FormatException catch (e) {
       final snackBar = SnackBar(
-        behavior: SnackBarBehavior.floating,
         backgroundColor: colorScheme.error,
         content: Text(e.message),
       );
@@ -45,7 +44,6 @@ class _TodoCreateFormState extends ConsumerState<TodoCreateForm> {
       scaffoldMessenger.showSnackBar(snackBar);
     } on Exception {
       final snackBar = SnackBar(
-        behavior: SnackBarBehavior.floating,
         backgroundColor: colorScheme.error,
         content: const Text('予期せぬエラーです'),
       );
