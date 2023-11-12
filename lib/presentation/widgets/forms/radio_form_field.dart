@@ -135,7 +135,7 @@ class _Builder<T> extends StatelessWidget {
               errorText,
               style: effectiveErrorStyle(),
             ),
-          ]
+          ],
         ],
       ),
     );

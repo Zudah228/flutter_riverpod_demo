@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod_demo/presentation/pages/todo/widgets/todo_create_form.dart';
 
+import 'widgets/todo_create_form.dart';
 import 'widgets/todo_list_view.dart';
 
 class TodoPage extends StatefulWidget {
@@ -31,7 +31,7 @@ class _TodoPageState extends State<TodoPage> {
           SizedBox(height: 16),
           TodoCreateForm(),
           SizedBox(height: 16),
-          Expanded(child: TodoListView())
+          Expanded(child: TodoListView()),
         ],
       ),
     );

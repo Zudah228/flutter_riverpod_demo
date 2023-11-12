@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_riverpod_demo/domain/use_cases/todo/todo_list.dart';
-import 'package:flutter_riverpod_demo/domain/use_cases/todo/todo_save.dart';
 
+import '../../../../domain/use_cases/todo/todo_list.dart';
+import '../../../../domain/use_cases/todo/todo_save.dart';
 import '../../../../utils/form_validator/form_validator.dart';
 
 class TodoCreateForm extends ConsumerStatefulWidget {
@@ -33,7 +33,7 @@ class _TodoCreateFormState extends ConsumerState<TodoCreateForm> {
       );
 
       // ローカルの state を更新
-      ref.read(todoListProvider.notifier).add(savedTodo);
+      await ref.read(todoListProvider.notifier).add(savedTodo);
 
       _titleController.clear();
     } on FormatException catch (e) {
@@ -60,7 +60,6 @@ class _TodoCreateFormState extends ConsumerState<TodoCreateForm> {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
               child: TextFormField(
@@ -78,7 +77,7 @@ class _TodoCreateFormState extends ConsumerState<TodoCreateForm> {
                 onPressed: _onSubmitted,
                 child: const Icon(Icons.send),
               ),
-            )
+            ),
           ],
         ),
       ),

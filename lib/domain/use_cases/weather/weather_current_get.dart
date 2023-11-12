@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_riverpod_demo/domain/entities/weather/current_weather_response/current_weather_response.dart';
 
+import '../../entities/weather/current_weather_response/current_weather_response.dart';
 import '../../repositories/weather/weather_repository.dart';
 
 final weatherCurrentGet = Provider.autoDispose(WeatherCurrentGet.new);

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_riverpod_demo/domain/entities/weather/current_weather_response/current_weather_response.dart';
-import 'package:flutter_riverpod_demo/domain/entities/weather/weather_error/weather_error.dart';
-import 'package:flutter_riverpod_demo/domain/use_cases/weather/weather_current_get.dart';
 import 'package:intl/intl.dart';
+
+import '../../../domain/entities/weather/current_weather_response/current_weather_response.dart';
+import '../../../domain/entities/weather/weather_error/weather_error.dart';
+import '../../../domain/use_cases/weather/weather_current_get.dart';
 
 class WeatherPage extends ConsumerStatefulWidget {
   const WeatherPage._();
@@ -37,21 +38,25 @@ class _WeatherPageState extends ConsumerState<WeatherPage> {
 
       setState(() {});
     } on WeatherError catch (e) {
-      scaffoldMessenger.showSnackBar(SnackBar(
-        content: Text(
-          e.message,
-          style: TextStyle(color: colorScheme.onError),
+      scaffoldMessenger.showSnackBar(
+        SnackBar(
+          content: Text(
+            e.message,
+            style: TextStyle(color: colorScheme.onError),
+          ),
+          backgroundColor: colorScheme.error,
         ),
-        backgroundColor: colorScheme.error,
-      ));
+      );
     } on Exception catch (e) {
-      scaffoldMessenger.showSnackBar(SnackBar(
-        content: Text(
-          e.toString(),
-          style: TextStyle(color: colorScheme.onError),
+      scaffoldMessenger.showSnackBar(
+        SnackBar(
+          content: Text(
+            e.toString(),
+            style: TextStyle(color: colorScheme.onError),
+          ),
+          backgroundColor: colorScheme.error,
         ),
-        backgroundColor: colorScheme.error,
-      ));
+      );
     }
   }
 
@@ -76,7 +81,7 @@ class _WeatherPageState extends ConsumerState<WeatherPage> {
                 FilledButton(
                   onPressed: _onSubmitted,
                   child: const Icon(Icons.search),
-                )
+                ),
               ],
             ),
             const SizedBox(height: 16),

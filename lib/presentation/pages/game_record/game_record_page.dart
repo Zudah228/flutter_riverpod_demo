@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod_demo/domain/entities/game_record/game_record.dart';
-import 'package:flutter_riverpod_demo/domain/entities/game_result/game_result.dart';
-import 'package:flutter_riverpod_demo/presentation/widgets/dialogs/game_record_dialog.dart';
-import 'package:flutter_riverpod_demo/presentation/widgets/forms/radio_form_field.dart';
-import 'package:flutter_riverpod_demo/presentation/widgets/unfocus_gesture_detector.dart';
-import 'package:flutter_riverpod_demo/utils/form_validator/form_validator.dart';
 
 import '../../../domain/entities/game_fighter/game_fighter.dart';
+import '../../../domain/entities/game_record/game_record.dart';
+import '../../../domain/entities/game_result/game_result.dart';
+import '../../../utils/form_validator/form_validator.dart';
+import '../../widgets/dialogs/game_record_dialog.dart';
+import '../../widgets/forms/radio_form_field.dart';
+import '../../widgets/unfocus_gesture_detector.dart';
 import 'widgets/game_fighter_form.dart';
 
 class GameRecordPage extends StatefulWidget {
@@ -69,7 +69,7 @@ class _GameRecordPageState extends State<GameRecordPage> {
   Widget build(BuildContext context) {
     final resultForm = RadioFormField<GameResult>(
       controller: _gameResultController,
-      validator: formValidator.object().required().build(),
+      validator: formValidator.object<GameResult>().required().build(),
       items: GameResult.values
           .map(
             (value) => RadioFormFieldItem<GameResult>(
@@ -82,7 +82,6 @@ class _GameRecordPageState extends State<GameRecordPage> {
 
     final memoForm = TextFormField(
       controller: _memoController,
-      validator: null,
       maxLines: null,
       decoration: const InputDecoration(
         label: Text('メモ'),
@@ -91,7 +90,7 @@ class _GameRecordPageState extends State<GameRecordPage> {
 
     final myFighterForm = GameFighterForm(
       value: _myFighter,
-      validator: formValidator.object().required().build(),
+      validator: formValidator.object<GameFighter>().required().build(),
       onChanged: (value) {
         setState(() {
           _myFighter = value;
@@ -102,7 +101,7 @@ class _GameRecordPageState extends State<GameRecordPage> {
 
     final opponentFighterForm = GameFighterForm(
       value: _opponentFighter,
-      validator: formValidator.object().required().build(),
+      validator: formValidator.object<GameFighter>().required().build(),
       onChanged: (value) {
         setState(() {
           _opponentFighter = value;

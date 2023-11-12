@@ -15,7 +15,7 @@ class Todo {
   final String title;
 
   @override
-  bool operator ==(other) =>
+  bool operator ==(Object other) =>
       other is Todo && other.runtimeType == runtimeType && other.id == id;
 
   @override

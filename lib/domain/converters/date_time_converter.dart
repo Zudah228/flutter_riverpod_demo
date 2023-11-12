@@ -5,7 +5,7 @@ class DateTimeEpochConverter implements JsonConverter<DateTime, int> {
 
   @override
   DateTime fromJson(int json) {
-    return DateTime.fromMillisecondsSinceEpoch(json, isUtc: false);
+    return DateTime.fromMillisecondsSinceEpoch(json);
   }
 
   @override

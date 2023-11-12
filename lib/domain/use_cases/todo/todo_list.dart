@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_riverpod_demo/domain/repositories/todo/todo_repository.dart';
 
 import '../../entities/todo/todo.dart';
+import '../../repositories/todo/todo_repository.dart';
 
 final todoListProvider =
     AsyncNotifierProvider.autoDispose<TodoListNotifier, Set<Todo>>(
@@ -18,7 +18,7 @@ class TodoListNotifier extends AutoDisposeAsyncNotifier<Set<Todo>> {
     return repository.list().then((value) => value.toSet());
   }
 
-  Future<void> add( Todo todo) async {
+  Future<void> add(Todo todo) async {
     final current = await future;
 
     state = AsyncData({todo, ...current});

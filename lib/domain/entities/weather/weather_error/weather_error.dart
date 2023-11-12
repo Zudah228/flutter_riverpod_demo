@@ -11,6 +11,6 @@ class WeatherError with _$WeatherError implements Exception {
   }) = _WeatherError;
   
   factory WeatherError.fromJson(Map<String, dynamic> json) =>
-      _$WeatherErrorFromJson(json['error']);
+      _$WeatherErrorFromJson(json['error'] as Map<String, dynamic>);
   WeatherError._();
 }

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_riverpod_demo/domain/entities/game_fighter/game_fighter.dart';
-import 'package:flutter_riverpod_demo/domain/use_cases/game_fighter_list/game_fighter_list.dart';
+
+import '../../../../domain/entities/game_fighter/game_fighter.dart';
+import '../../../../domain/use_cases/game_fighter_list/game_fighter_list.dart';
 
 class GameFighterForm extends ConsumerWidget {
   const GameFighterForm({
@@ -23,7 +24,6 @@ class GameFighterForm extends ConsumerWidget {
 
     return fighterListAsync.when(
       data: (fighterList) => DropdownButtonFormField<GameFighter>(
-        
         value: value,
         items: fighterList.list
             .map(

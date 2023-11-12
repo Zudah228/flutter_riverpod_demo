@@ -13,7 +13,7 @@ class TodoSave {
       print('save todo ${newTodo.id}');
     }
 
-    await Future.delayed(const Duration(milliseconds: 700));
+    await Future<void>.delayed(const Duration(milliseconds: 700));
 
     return newTodo;
   }

@@ -2,11 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_riverpod_demo/domain/entities/weather/current_weather_response/current_weather_response.dart';
-import 'package:flutter_riverpod_demo/domain/entities/weather/weather_error/weather_error.dart';
 import 'package:http/http.dart';
 
 import '../../../env.dart';
+import '../../entities/weather/current_weather_response/current_weather_response.dart';
+import '../../entities/weather/weather_error/weather_error.dart';
 
 final weatherRepositoryProvider = Provider.autoDispose((_) {
   return WeatherRepository(
@@ -32,14 +32,18 @@ class WeatherRepository {
     );
 
     if (response.statusCode >= 200 && response.statusCode < 300) {
-      final data = CurrentWeatherResponse.fromJson(jsonDecode(response.body));
+      final data = CurrentWeatherResponse.fromJson(
+        jsonDecode(response.body) as Map<String, dynamic>,
+      );
 
       if (kDebugMode) {
         print(data);
       }
       return data;
     } else {
-      throw WeatherError.fromJson(jsonDecode(response.body));
+      throw WeatherError.fromJson(
+        jsonDecode(response.body) as Map<String, dynamic>,
+      );
     }
   }
 }

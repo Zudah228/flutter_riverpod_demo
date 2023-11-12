@@ -17,9 +17,7 @@ class ObjectValidationBuilder {
   final List<ValidationCallback> validations = [];
 
   ObjectValidationBuilder required([String? message]) => add(
-        (v) => v == null
-            ? message ?? FormValidator.locale.required()
-            : null,
+        (v) => v == null ? message ?? FormValidator.locale.required() : null,
       );
 
   ObjectValidationBuilder add(ValidationCallback validator) {
@@ -28,7 +26,7 @@ class ObjectValidationBuilder {
   }
 
   String? test(Object? value) {
-    for (var validate in validations) {
+    for (final validate in validations) {
       // Otherwise execute validations
       final result = validate(value);
       if (result != null) {

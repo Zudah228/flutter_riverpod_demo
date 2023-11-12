@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod_demo/presentation/pages/game_record/game_record_page.dart';
 
+import '../game_record/game_record_page.dart';
 import '../todo/todo_page.dart';
 import '../weather/weather_page.dart';
 
@@ -38,37 +38,38 @@ class _HomePageState extends State<HomePage> {
           return Card(
             clipBehavior: Clip.antiAlias,
             child: InkWell(
-                onTap: () {
-                  Navigator.of(context).push(item.route());
-                },
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Align(
-                          alignment: AlignmentDirectional.centerStart,
-                          child: Text(item.description),
+              onTap: () {
+                Navigator.of(context).push(item.route());
+              },
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: Align(
+                        alignment: AlignmentDirectional.centerStart,
+                        child: Text(item.description),
+                      ),
+                    ),
+                  ),
+                  Ink(
+                    width: double.infinity,
+                    color: themeData.colorScheme.primary,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: Text(
+                        item.title,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: themeData.colorScheme.onPrimary,
                         ),
                       ),
                     ),
-                    Ink(
-                      width: double.infinity,
-                      color: themeData.colorScheme.primary,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          item.title,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: themeData.colorScheme.onPrimary,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                )),
+                  ),
+                ],
+              ),
+            ),
           );
         },
         itemCount: items.length,

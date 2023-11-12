@@ -1,6 +1,6 @@
-import 'package:flutter_riverpod_demo/domain/entities/game_fighter/game_fighter.dart';
 import 'package:uuid/uuid.dart';
 
+import '../game_fighter/game_fighter.dart';
 import '../game_result/game_result.dart';
 
 class GameRecord {

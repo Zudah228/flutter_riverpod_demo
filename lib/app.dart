@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod_demo/presentation/res/app_theme.dart';
 
 import 'presentation/pages/home/home_page.dart';
+import 'presentation/res/app_theme.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
