@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod_demo/domain/use_cases/todo/todo_list.dart';
 import 'package:flutter_riverpod_demo/domain/use_cases/todo/todo_save.dart';
-import 'package:form_validator/form_validator.dart';
+
+import '../../../../utils/form_validator/form_validator.dart';
 
 class TodoCreateForm extends ConsumerStatefulWidget {
   const TodoCreateForm({super.key});
@@ -64,7 +65,7 @@ class _TodoCreateFormState extends ConsumerState<TodoCreateForm> {
             Expanded(
               child: TextFormField(
                 controller: _titleController,
-                validator: ValidationBuilder().required().build(),
+                validator: formValidator.string().required().build(),
                 onTapOutside: (_) {
                   FocusScope.of(context).unfocus();
                 },

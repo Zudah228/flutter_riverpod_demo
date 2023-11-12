@@ -5,17 +5,13 @@ class AppTheme {
 
   static ThemeData _base(ColorScheme colorScheme) {
     return ThemeData(
+      useMaterial3: true,
       colorScheme: colorScheme,
       snackBarTheme: const SnackBarThemeData(
         behavior: SnackBarBehavior.floating,
       ),
       inputDecorationTheme: const InputDecorationTheme(
         border: OutlineInputBorder(),
-      ),
-      iconButtonTheme: IconButtonThemeData(
-        style: FilledButton.styleFrom(
-          backgroundColor: colorScheme.primary,
-        ),
       ),
       listTileTheme: ListTileThemeData(
         shape: const RoundedRectangleBorder(

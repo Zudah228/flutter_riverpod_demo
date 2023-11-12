@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod_demo/presentation/pages/game_record/game_record_page.dart';
 
 import '../todo/todo_page.dart';
 
@@ -14,6 +15,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final items = [
       (title: 'Todo', route: TodoPage.route),
+      (title: 'MealRecord', route: GameRecordPage.route),
     ];
 
     return Scaffold(
@@ -28,11 +30,11 @@ class _HomePageState extends State<HomePage> {
         itemBuilder: (context, index) {
           final item = items[index];
 
-          return InkWell(
-            onTap: () {
-              Navigator.of(context).push(item.route());
-            },
-            child: Card(
+          return Card(
+            child: InkWell(
+              onTap: () {
+                Navigator.of(context).push(item.route());
+              },
               child: Center(child: Text(item.title)),
             ),
           );
