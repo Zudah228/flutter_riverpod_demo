@@ -14,10 +14,11 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    final themeData = Theme.of(context);
     final items = [
-      (title: 'Todo', route: TodoPage.route),
-      (title: '試合記録', route: GameRecordPage.route),
-      (title: '天気', route: WeatherPage.route),
+      (title: 'Todo', description: 'シンプルなTodo', route: TodoPage.route),
+      (title: '試合記録', description: '複雑な Form', route: GameRecordPage.route),
+      (title: '天気', description: 'Weather API の使用', route: WeatherPage.route),
     ];
 
     return Scaffold(
@@ -25,6 +26,8 @@ class _HomePageState extends State<HomePage> {
       body: GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
+          crossAxisSpacing: 8,
+          mainAxisSpacing: 16,
         ),
         padding: const EdgeInsets.symmetric(horizontal: 24).copyWith(
           top: 32,
@@ -33,12 +36,39 @@ class _HomePageState extends State<HomePage> {
           final item = items[index];
 
           return Card(
+            clipBehavior: Clip.antiAlias,
             child: InkWell(
-              onTap: () {
-                Navigator.of(context).push(item.route());
-              },
-              child: Center(child: Text(item.title)),
-            ),
+                onTap: () {
+                  Navigator.of(context).push(item.route());
+                },
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Align(
+                          alignment: AlignmentDirectional.centerStart,
+                          child: Text(item.description),
+                        ),
+                      ),
+                    ),
+                    Ink(
+                      width: double.infinity,
+                      color: themeData.colorScheme.primary,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          item.title,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: themeData.colorScheme.onPrimary,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                )),
           );
         },
         itemCount: items.length,
