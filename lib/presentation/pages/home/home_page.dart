@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod_demo/presentation/pages/game_record/game_record_page.dart';
 
 import '../todo/todo_page.dart';
+import '../weather/weather_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -15,7 +16,8 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final items = [
       (title: 'Todo', route: TodoPage.route),
-      (title: 'MealRecord', route: GameRecordPage.route),
+      (title: '試合記録', route: GameRecordPage.route),
+      (title: '天気', route: WeatherPage.route),
     ];
 
     return Scaffold(
