@@ -22,6 +22,7 @@ class ObjectValidationBuilder {
 
   ObjectValidationBuilder add(ValidationCallback validator) {
     validations.add(validator);
+    // ignore: avoid_returning_this
     return this;
   }
 

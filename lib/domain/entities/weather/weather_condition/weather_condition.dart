@@ -11,10 +11,10 @@ part 'weather_condition.g.dart';
 class WeatherCondition with _$WeatherCondition {
   const factory WeatherCondition({
     required String text,
-   @JsonKey(name: 'icon') @WeatherCdnUrlConverter() required String iconUrl,
+    @JsonKey(name: 'icon') @WeatherCdnUrlConverter() required String iconUrl,
   }) = _WeatherCondition;
 
   const WeatherCondition._();
-  factory WeatherCondition.fromJson(Map<String, Object?> json) => _$WeatherConditionFromJson(json);
-
+  factory WeatherCondition.fromJson(Map<String, Object?> json) =>
+      _$WeatherConditionFromJson(json);
 }
