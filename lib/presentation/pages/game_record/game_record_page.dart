@@ -5,6 +5,7 @@ import '../../../domain/entities/game_record/game_record.dart';
 import '../../../domain/entities/game_result/game_result.dart';
 import '../../../utils/form_validator/form_validator.dart';
 import '../../widgets/dialogs/game_record_dialog.dart';
+import '../../widgets/forms/date_time_form_field.dart';
 import '../../widgets/forms/radio_form_field.dart';
 import '../../widgets/unfocus_gesture_detector.dart';
 import 'widgets/game_fighter_form.dart';
@@ -131,6 +132,8 @@ class _GameRecordPageState extends State<GameRecordPage> {
                   opponentFighterForm,
                   const SizedBox(height: 16),
                   memoForm,
+                  const SizedBox(height: 16),
+                  DateTimeFormField(),
                   const SizedBox(height: 24),
                   FilledButton(
                     style: const ButtonStyle(
