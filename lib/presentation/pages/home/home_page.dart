@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../game_record/game_record_page.dart';
+import '../text_painter/text_painter_page.dart';
 import '../todo/todo_page.dart';
 import '../weather/weather_page.dart';
 
@@ -19,6 +20,11 @@ class _HomePageState extends State<HomePage> {
       (title: 'Todo', description: 'シンプルなTodo', route: TodoPage.route),
       (title: '試合記録', description: '複雑な Form', route: GameRecordPage.route),
       (title: '天気', description: 'Weather API の使用', route: WeatherPage.route),
+      (
+        title: 'TextPainter',
+        description: 'TextPainter の動作実験',
+        route: TextPainterPage.route
+      ),
     ];
 
     return Scaffold(
