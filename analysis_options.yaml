@@ -7,6 +7,9 @@ analyzer:
     - lib/**/*.g.dart
 linter:
   rules:
+    # デモアプリなので、print は許可
+    avoid_print: false
+
     prefer_relative_imports: true
     prefer_const_constructors: true
     always_use_package_imports: false
