@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../button_style_button/button_style_button_page.dart';
 import '../game_record/game_record_page.dart';
 import '../text_painter/text_painter_page.dart';
 import '../todo/todo_page.dart';
@@ -24,6 +25,10 @@ class _HomePageState extends State<HomePage> {
         title: 'TextPainter',
         description: 'TextPainter の動作実験',
         route: TextPainterPage.route
+      ),(
+        title: 'ButtonStyleButton',
+        description: 'ButtonStyleButton の動作実験',
+        route: ButtonStyleButtonPage.route,
       ),
     ];
 
