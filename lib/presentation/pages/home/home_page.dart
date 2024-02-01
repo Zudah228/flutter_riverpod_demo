@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../async_value/async_value_page.dart';
 import '../button_style_button/button_style_button_page.dart';
+import '../counter/counter_page.dart';
 import '../game_record/game_record_page.dart';
 import '../text_painter/text_painter_page.dart';
 import '../todo/todo_page.dart';
@@ -19,6 +20,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
     final items = [
+      (title: 'Counter', description: 'シンプルなカウンター', route: CounterPage.route),
       (title: 'Todo', description: 'シンプルなTodo', route: TodoPage.route),
       (title: '試合記録', description: '複雑な Form', route: GameRecordPage.route),
       (title: '天気', description: 'Weather API の使用', route: WeatherPage.route),
