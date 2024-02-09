@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../async_value/async_value_page.dart';
 import '../button_style_button/button_style_button_page.dart';
 import '../counter/counter_page.dart';
+import '../custom_refresh_indicator/custom_refresh_indicator_page.dart';
 import '../game_record/game_record_page.dart';
 import '../text_painter/text_painter_page.dart';
 import '../todo/todo_page.dart';
@@ -38,6 +39,11 @@ class _HomePageState extends State<HomePage> {
         title: 'AsyncValuePage',
         description: 'AsyncValuePage の動作実験',
         route: AsyncValuePage.route,
+      ),
+      (
+        title: 'CustomRefreshIndicatorPage',
+        description: 'CustomRefreshIndicator の動作実験',
+        route: CustomRefreshIndicatorPage.route,
       ),
     ];
 
