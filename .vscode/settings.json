@@ -3,6 +3,8 @@
     "autovalidate",
     "localtime",
     "prefcode",
+    "reordable",
+    "Reorderable",
     "weatherapi",
     "zipcode"
   ]
