@@ -5,6 +5,7 @@ import '../button_style_button/button_style_button_page.dart';
 import '../counter/counter_page.dart';
 import '../custom_refresh_indicator/custom_refresh_indicator_page.dart';
 import '../game_record/game_record_page.dart';
+import '../read_more_text/read_more_text_page.dart';
 import '../reorderable_list/reorderable_list_page.dart';
 import '../text_painter/text_painter_page.dart';
 import '../todo/todo_page.dart';
@@ -50,6 +51,11 @@ class _HomePageState extends State<HomePage> {
         title: 'ReorderableListPage',
         description: 'ReorderableList の動作実験',
         route: ReorderableListPage.route,
+      ),
+      (
+        title: '「もっと見る」',
+        description: '「もっと見る」でのテキスト表示切り替え',
+        route: ReadMoreTextPage.route,
       ),
     ];
 
