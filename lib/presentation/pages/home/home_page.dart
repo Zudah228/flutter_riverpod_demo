@@ -69,6 +69,7 @@ class _HomePageState extends State<HomePage> {
         ),
         padding: const EdgeInsets.symmetric(horizontal: 24).copyWith(
           top: 32,
+          bottom: MediaQuery.paddingOf(context).bottom + 16,
         ),
         itemBuilder: (context, index) {
           final item = items[index];
