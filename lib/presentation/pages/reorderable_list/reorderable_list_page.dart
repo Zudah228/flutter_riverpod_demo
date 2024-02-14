@@ -115,11 +115,6 @@ class _ReorderableListPageState extends State<ReorderableListPage> {
               ),
             ),
           ),
-          SliverToBoxAdapter(
-            child: SizedBox(
-              
-            ),
-          )
         ],
       ),
     );
