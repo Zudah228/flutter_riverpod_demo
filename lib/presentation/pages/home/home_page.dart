@@ -63,7 +63,7 @@ class _HomePageState extends State<HomePage> {
         description: 'reactive_forms パッケージを試す',
         route: ReactiveFormsPage.route,
       ),
-    ];
+    ].reversed.toList();
 
     return Scaffold(
       appBar: AppBar(title: const Text('Home')),
