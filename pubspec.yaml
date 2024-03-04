@@ -26,6 +26,8 @@ dependencies:
 
   # Validation
   form_validator: ^2.1.1
+  reactive_forms: ^16.1.1
+  reactive_date_time_picker: ^3.0.0
 
   # Extend Dart
   intl: ^0.18.1
