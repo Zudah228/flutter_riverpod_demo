@@ -5,6 +5,7 @@ import '../button_style_button/button_style_button_page.dart';
 import '../counter/counter_page.dart';
 import '../custom_refresh_indicator/custom_refresh_indicator_page.dart';
 import '../game_record/game_record_page.dart';
+import '../infinite_scroll_pagination/infinite_scroll_pagination_page.dart';
 import '../reactive_forms/reactive_forms_page.dart';
 import '../read_more_text/read_more_text_page.dart';
 import '../reorderable_list/reorderable_list_page.dart';
@@ -62,6 +63,11 @@ class _HomePageState extends State<HomePage> {
         title: 'reactive_forms',
         description: 'reactive_forms パッケージを試す',
         route: ReactiveFormsPage.route,
+      ),
+      (
+        title: 'infinite_scroll_pagination',
+        description: 'infinite_scroll_pagination パッケージを試す',
+        route: InfiniteScrollPaginationPage.route,
       ),
     ].reversed.toList();
 
