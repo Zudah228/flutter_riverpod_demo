@@ -4,6 +4,7 @@ import '../async_value/async_value_page.dart';
 import '../button_style_button/button_style_button_page.dart';
 import '../counter/counter_page.dart';
 import '../custom_refresh_indicator/custom_refresh_indicator_page.dart';
+import '../fractionary_widget/fractionally_widget_page.dart';
 import '../game_record/game_record_page.dart';
 import '../infinite_scroll_pagination/infinite_scroll_pagination_page.dart';
 import '../reactive_forms/reactive_forms_page.dart';
@@ -68,6 +69,11 @@ class _HomePageState extends State<HomePage> {
         title: 'infinite_scroll_pagination',
         description: 'infinite_scroll_pagination パッケージを試す',
         route: InfiniteScrollPaginationPage.route,
+      ),
+      (
+        title: 'fractional なウィジェットの動作確認',
+        description: 'FractionallyWidget',
+        route: FractionallyWidgetPage.route,
       ),
     ].reversed.toList();
 
