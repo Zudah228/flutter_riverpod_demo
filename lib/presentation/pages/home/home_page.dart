@@ -10,6 +10,7 @@ import '../infinite_scroll_pagination/infinite_scroll_pagination_page.dart';
 import '../reactive_forms/reactive_forms_page.dart';
 import '../read_more_text/read_more_text_page.dart';
 import '../reorderable_list/reorderable_list_page.dart';
+import '../text_editing_value/text_editing_value_page.dart';
 import '../text_painter/text_painter_page.dart';
 import '../todo/todo_page.dart';
 import '../weather/weather_page.dart';
@@ -74,6 +75,11 @@ class _HomePageState extends State<HomePage> {
         title: 'fractional なウィジェットの動作確認',
         description: 'FractionallyWidget',
         route: FractionallyWidgetPage.route,
+      ),
+      (
+        title: 'TextEditingValuePage の動作確認',
+        description: 'TextEditingValuePage',
+        route: TextEditingValuePage.route,
       ),
     ].reversed.toList();
 
