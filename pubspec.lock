@@ -555,6 +555,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.3"
+  qreki_dart:
+    dependency: "direct main"
+    description:
+      name: qreki_dart
+      sha256: "268719865aa64a5553fb74fc98b941f2c6b0417a6f140b2b23edb66e7ddaf065"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.0"
   reactive_date_time_picker:
     dependency: "direct main"
     description:
