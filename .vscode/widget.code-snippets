@@ -35,7 +35,7 @@
       "",
       "    return Scaffold(",
       "      appBar: AppBar(),",
-      "      body: Center(child: Text('${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}')),",
+      "      body: const Center(child: Text('${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}')),",
       "    );",
       "  }",
       "}",
