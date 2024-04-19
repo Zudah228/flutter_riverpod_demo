@@ -16,32 +16,65 @@ class FractionallyWidgetPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: SizedBox(
-        height: 100,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const _SizedBox(color: Colors.indigo),
-            const ClipRect(
-              child: Align(
-                heightFactor: 0.5,
-                child: _SizedBox(color: Colors.amber),
-              ),
+      body: Column(
+        children: [
+          const Text('FractionallySizedBox'),
+          const SizedBox(
+            height: 100,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _SizedBox(color: Colors.indigo),
+                FractionallySizedBox(
+                  heightFactor: 0.15,
+                  child: _SizedBox(
+                    color: Colors.green,
+                  ),
+                ),
+              ],
             ),
-            Transform.scale(
-              scaleY: 0.5,
-              child: const _SizedBox(
-                color: Colors.purple,
-              ),
+          ),
+          const SizedBox(height: 24),
+          const Text('Align'),
+          const SizedBox(
+            height: 100,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _SizedBox(color: Colors.indigo),
+                ClipRect(
+                  child: Align(
+                    heightFactor: 0.15,
+                    child: _SizedBox(color: Colors.amber),
+                  ),
+                ),
+              ],
             ),
-            const FractionallySizedBox(
-              heightFactor: 0.5,
-              child: _SizedBox(
-                color: Colors.purple,
-              ),
+          ),
+          const SizedBox(height: 24),
+          const Text('Transform.scale'),
+          SizedBox(
+            height: 100,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const _SizedBox(color: Colors.indigo),
+                Transform.scale(
+                  scaleY: 0.5,
+                  child: const _SizedBox(
+                    color: Colors.purple,
+                  ),
+                ),
+                Transform.scale(
+                  scaleY: 0.5,
+                  child: const _SizedBox(
+                    color: Colors.purple,
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -58,7 +91,9 @@ class _SizedBox extends StatelessWidget {
       dimension: 100,
       child: ColoredBox(
         color: color,
-        child: const Center(child: Text('AAA')),
+        child: const Center(
+          child: Text('AAA'),
+        ),
       ),
     );
   }
