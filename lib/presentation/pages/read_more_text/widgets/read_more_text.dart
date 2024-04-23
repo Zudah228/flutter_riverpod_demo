@@ -11,32 +11,68 @@ class ReadMoreText extends StatelessWidget {
     super.key,
     this.style,
     required this.minimumLines,
-    required this.foregroundColor,
+    required this.overlayColor,
+    this.textHeightBehavior,
+    this.textWidthBasis = TextWidthBasis.parent,
+    this.strutStyle,
+    this.textDirection,
+    this.textScaler,
+    this.textAlign,
+    this.semanticsLabel,
+    this.selectionColor,
   });
 
   final String text;
   final TextStyle? style;
-  final Color foregroundColor;
+  final Color overlayColor;
   final int minimumLines;
+  final TextHeightBehavior? textHeightBehavior;
+  final TextWidthBasis textWidthBasis;
+  final StrutStyle? strutStyle;
+  final TextDirection? textDirection;
+  final TextScaler? textScaler;
+  final TextAlign? textAlign;
+  final String? semanticsLabel;
+  final Color? selectionColor;
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
+        var effectiveTextStyle = style;
+        if (style == null || style!.inherit) {
+          effectiveTextStyle = DefaultTextStyle.of(context).style.merge(style);
+        }
+
         final textPainter = TextPainter(
           text: TextSpan(
             text: text,
-            style: style,
+            style: effectiveTextStyle,
           ),
-          textDirection: Directionality.maybeOf(context),
-        )..layout(maxWidth: constraints.maxWidth);
+          textAlign: textAlign ?? TextAlign.start,
+          textDirection: textDirection ?? Directionality.of(context),
+          textScaler: textScaler ?? MediaQuery.textScalerOf(context),
+          textHeightBehavior: textHeightBehavior,
+          textWidthBasis: textWidthBasis,
+          strutStyle: strutStyle,
+        )..layout(
+            minWidth: constraints.minWidth,
+            maxWidth: constraints.maxWidth,
+          );
 
         final lines = textPainter.computeLineMetrics();
 
-        final child = Text(
-          text,
-          style: style,
+        final child = Text.rich(
+          textPainter.text!,
           overflow: TextOverflow.visible,
+          semanticsLabel: semanticsLabel,
+          selectionColor: selectionColor,
+          textHeightBehavior: textPainter.textHeightBehavior,
+          textWidthBasis: textPainter.textWidthBasis,
+          strutStyle: textPainter.strutStyle,
+          textDirection: textPainter.textDirection,
+          textScaler: textPainter.textScaler,
+          textAlign: textPainter.textAlign,
         );
 
         // 文字が minimumLines に満たない場合、「もっと見る」ボタンは非表示にする
@@ -46,7 +82,7 @@ class ReadMoreText extends StatelessWidget {
 
         return _Toggleable(
           textPainter: textPainter,
-          foregroundColor: foregroundColor,
+          overlayColor: overlayColor,
           minimumLines: minimumLines,
           child: child,
         );
@@ -59,13 +95,13 @@ class _Toggleable extends StatefulWidget {
   const _Toggleable({
     required this.textPainter,
     required this.child,
-    required this.foregroundColor,
+    required this.overlayColor,
     required this.minimumLines,
   });
 
   final Widget child;
   final TextPainter textPainter;
-  final Color foregroundColor;
+  final Color overlayColor;
   final int minimumLines;
 
   @override
@@ -137,6 +173,7 @@ class _ToggleableState extends State<_Toggleable>
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         AnimatedBuilder(
           animation: _opacity,
@@ -147,8 +184,8 @@ class _ToggleableState extends State<_Toggleable>
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: <Color>[
-                    widget.foregroundColor,
-                    widget.foregroundColor.withOpacity(_opacity.value),
+                    widget.overlayColor,
+                    widget.overlayColor.withOpacity(_opacity.value),
                   ],
                 ).createShader(bounds);
               },
@@ -172,15 +209,18 @@ class _ToggleableState extends State<_Toggleable>
         const SizedBox(height: 16),
 
         // 「もっと見る」ボタン
-        OutlinedButton.icon(
-          onPressed: _toggleExpand,
-          icon: RotationTransition(
-            turns: _iconRotation,
-            child: const Icon(Icons.keyboard_arrow_down),
-          ),
-          label: Text(
-            _isHiding ? 'もっと見る' : '閉じる',
-            textAlign: TextAlign.center,
+        Align(
+          alignment: Alignment.centerRight,
+          child: TextButton.icon(
+            onPressed: _toggleExpand,
+            icon: RotationTransition(
+              turns: _iconRotation,
+              child: const Icon(Icons.keyboard_arrow_down),
+            ),
+            label: Text(
+              _isHiding ? 'もっと見る' : '閉じる',
+              textAlign: TextAlign.center,
+            ),
           ),
         ),
       ],

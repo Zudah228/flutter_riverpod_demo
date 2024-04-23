@@ -16,17 +16,37 @@ class ReadMoreTextPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final overlayColor = Theme.of(context).scaffoldBackgroundColor;
+
     return Scaffold(
       appBar: AppBar(),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 24,
-          ),
-          child: ReadMoreText(
-            'あいうえお' * 100,
-            minimumLines: 5,
-            foregroundColor: Colors.white,
+      body: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 24,
+        ),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              ReadMoreText(
+                'あいうえお' * 96,
+                minimumLines: 5,
+                overlayColor: overlayColor,
+              ),
+              const SizedBox(height: 24),
+              ReadMoreText(
+                'あいうえお' * 13,
+                minimumLines: 5,
+                overlayColor: overlayColor,
+              ),
+              const SizedBox(height: 24),
+              SelectionArea(
+                child: ReadMoreText(
+                  '選択可能あいうえお' * 13,
+                  minimumLines: 5,
+                  overlayColor: overlayColor,
+                ),
+              ),
+            ],
           ),
         ),
       ),
