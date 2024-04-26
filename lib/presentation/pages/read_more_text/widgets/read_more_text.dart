@@ -83,8 +83,6 @@ class ReadMoreTextState extends State<ReadMoreText> {
             maxWidth: constraints.maxWidth,
           );
 
-        final lines = textPainter.computeLineMetrics();
-
         final child = Text.rich(
           textPainter.text!,
           overflow: TextOverflow.visible,
@@ -99,6 +97,7 @@ class ReadMoreTextState extends State<ReadMoreText> {
           locale: widget.locale,
         );
 
+        final lines = textPainter.computeLineMetrics();
         // 文字が minimumLines に満たない場合、「もっと見る」ボタンは非表示にする
         if (lines.length < widget.minimumLines) {
           return child;
