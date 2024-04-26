@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 /// 「もっと見る」ボタンで隠せるテキスト
 ///
 /// そもそもの表示が `minimumLines` を満たない場合、「もっと見る」ボタンは表示されない
-class ReadMoreText extends StatelessWidget {
+class ReadMoreText extends StatefulWidget {
   const ReadMoreText(
     this.text, {
     super.key,
@@ -20,7 +20,7 @@ class ReadMoreText extends StatelessWidget {
     this.semanticsLabel,
     this.selectionColor,
     this.locale,
-  });
+  }) : assert(minimumLines > 0);
 
   final String text;
   final TextStyle? style;
@@ -38,26 +38,46 @@ class ReadMoreText extends StatelessWidget {
   final Locale? locale;
 
   @override
+  ReadMoreTextState createState() => ReadMoreTextState();
+}
+
+class ReadMoreTextState extends State<ReadMoreText> {
+  final _toggleableKey = GlobalKey<_ToggleableState>();
+
+  void toggle() {
+    _toggleableKey.currentState!._toggle();
+  }
+
+  void expand() {
+    _toggleableKey.currentState!._expand();
+  }
+
+  void collapse() {
+    _toggleableKey.currentState!._collapse();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        var effectiveTextStyle = style;
-        if (style == null || style!.inherit) {
-          effectiveTextStyle = DefaultTextStyle.of(context).style.merge(style);
+        var effectiveTextStyle = widget.style;
+        if (widget.style == null || widget.style!.inherit) {
+          effectiveTextStyle =
+              DefaultTextStyle.of(context).style.merge(widget.style);
         }
 
         final textPainter = TextPainter(
           text: TextSpan(
-            text: text,
+            text: widget.text,
             style: effectiveTextStyle,
           ),
-          locale: locale,
-          textAlign: textAlign ?? TextAlign.start,
-          textDirection: textDirection ?? Directionality.of(context),
-          textScaler: textScaler ?? MediaQuery.textScalerOf(context),
-          textHeightBehavior: textHeightBehavior,
-          textWidthBasis: textWidthBasis,
-          strutStyle: strutStyle,
+          locale: widget.locale,
+          textAlign: widget.textAlign ?? TextAlign.start,
+          textDirection: widget.textDirection ?? Directionality.of(context),
+          textScaler: widget.textScaler ?? MediaQuery.textScalerOf(context),
+          textHeightBehavior: widget.textHeightBehavior,
+          textWidthBasis: widget.textWidthBasis,
+          strutStyle: widget.strutStyle,
         )..layout(
             minWidth: constraints.minWidth,
             maxWidth: constraints.maxWidth,
@@ -68,27 +88,28 @@ class ReadMoreText extends StatelessWidget {
         final child = Text.rich(
           textPainter.text!,
           overflow: TextOverflow.visible,
-          semanticsLabel: semanticsLabel,
-          selectionColor: selectionColor,
+          semanticsLabel: widget.semanticsLabel,
+          selectionColor: widget.selectionColor,
           textHeightBehavior: textPainter.textHeightBehavior,
           textWidthBasis: textPainter.textWidthBasis,
           strutStyle: textPainter.strutStyle,
           textDirection: textPainter.textDirection,
           textScaler: textPainter.textScaler,
           textAlign: textPainter.textAlign,
-          locale: locale,
+          locale: widget.locale,
         );
 
         // 文字が minimumLines に満たない場合、「もっと見る」ボタンは非表示にする
-        if (lines.length < minimumLines) {
+        if (lines.length < widget.minimumLines) {
           return child;
         }
 
         return _Toggleable(
+          key: _toggleableKey,
           textPainter: textPainter,
-          overlayColor: overlayColor,
-          minimumLines: minimumLines,
-          duration: duration,
+          overlayColor: widget.overlayColor,
+          minimumLines: widget.minimumLines,
+          duration: widget.duration,
           child: child,
         );
       },
@@ -98,6 +119,7 @@ class ReadMoreText extends StatelessWidget {
 
 class _Toggleable extends StatefulWidget {
   const _Toggleable({
+    super.key,
     required this.textPainter,
     required this.child,
     required this.overlayColor,
@@ -128,16 +150,20 @@ class _ToggleableState extends State<_Toggleable>
 
   var _isHiding = true;
 
-  void _toggleExpand() {
-    setState(() {
-      if (_isHiding) {
-        _animationController.forward();
-      } else {
-        _animationController.reverse();
-      }
+  void _toggle() {
+    if (_isHiding) {
+      _expand();
+    } else {
+      _collapse();
+    }
+  }
 
-      _isHiding = !_isHiding;
-    });
+  void _expand() {
+    _animationController.forward();
+  }
+
+  void _collapse() {
+    _animationController.reverse();
   }
 
   double _computeMinimumHeightFactor() {
@@ -150,12 +176,27 @@ class _ToggleableState extends State<_Toggleable>
     return 1 / (maximumHeight / minimumHeight);
   }
 
+  void _animationStatusListener(AnimationStatus status) {
+    switch (status) {
+      case AnimationStatus.forward:
+        setState(() {
+          _isHiding = false;
+        });
+      case AnimationStatus.reverse:
+        setState(() {
+          _isHiding = true;
+        });
+      case AnimationStatus.dismissed:
+      case AnimationStatus.completed:
+    }
+  }
+
   @override
   void initState() {
     _animationController = AnimationController(
       vsync: this,
       duration: widget.duration,
-    );
+    )..addStatusListener(_animationStatusListener);
 
     final begin = _computeMinimumHeightFactor();
 
@@ -211,7 +252,7 @@ class _ToggleableState extends State<_Toggleable>
         Align(
           alignment: Alignment.centerRight,
           child: TextButton.icon(
-            onPressed: _toggleExpand,
+            onPressed: _toggle,
             icon: RotationTransition(
               turns: _iconRotation,
               child: const Icon(Icons.keyboard_arrow_down),
