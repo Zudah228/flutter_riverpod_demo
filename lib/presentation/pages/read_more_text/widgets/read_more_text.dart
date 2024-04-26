@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-const _kAnimationDuration = Duration(milliseconds: 240);
-
 /// 「もっと見る」ボタンで隠せるテキスト
 ///
 /// そもそもの表示が `minimumLines` を満たない場合、「もっと見る」ボタンは表示されない
@@ -12,6 +10,7 @@ class ReadMoreText extends StatelessWidget {
     this.style,
     required this.minimumLines,
     required this.overlayColor,
+    this.duration = const Duration(milliseconds: 240),
     this.textHeightBehavior,
     this.textWidthBasis = TextWidthBasis.parent,
     this.strutStyle,
@@ -20,10 +19,12 @@ class ReadMoreText extends StatelessWidget {
     this.textAlign,
     this.semanticsLabel,
     this.selectionColor,
+    this.locale,
   });
 
   final String text;
   final TextStyle? style;
+  final Duration duration;
   final Color overlayColor;
   final int minimumLines;
   final TextHeightBehavior? textHeightBehavior;
@@ -34,6 +35,7 @@ class ReadMoreText extends StatelessWidget {
   final TextAlign? textAlign;
   final String? semanticsLabel;
   final Color? selectionColor;
+  final Locale? locale;
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +51,7 @@ class ReadMoreText extends StatelessWidget {
             text: text,
             style: effectiveTextStyle,
           ),
+          locale: locale,
           textAlign: textAlign ?? TextAlign.start,
           textDirection: textDirection ?? Directionality.of(context),
           textScaler: textScaler ?? MediaQuery.textScalerOf(context),
@@ -73,6 +76,7 @@ class ReadMoreText extends StatelessWidget {
           textDirection: textPainter.textDirection,
           textScaler: textPainter.textScaler,
           textAlign: textPainter.textAlign,
+          locale: locale,
         );
 
         // 文字が minimumLines に満たない場合、「もっと見る」ボタンは非表示にする
@@ -84,6 +88,7 @@ class ReadMoreText extends StatelessWidget {
           textPainter: textPainter,
           overlayColor: overlayColor,
           minimumLines: minimumLines,
+          duration: duration,
           child: child,
         );
       },
@@ -97,12 +102,14 @@ class _Toggleable extends StatefulWidget {
     required this.child,
     required this.overlayColor,
     required this.minimumLines,
+    required this.duration,
   });
 
   final Widget child;
   final TextPainter textPainter;
   final Color overlayColor;
   final int minimumLines;
+  final Duration duration;
 
   @override
   State<_Toggleable> createState() => _ToggleableState();
@@ -147,7 +154,7 @@ class _ToggleableState extends State<_Toggleable>
   void initState() {
     _animationController = AnimationController(
       vsync: this,
-      duration: _kAnimationDuration,
+      duration: widget.duration,
     );
 
     final begin = _computeMinimumHeightFactor();
@@ -192,17 +199,9 @@ class _ToggleableState extends State<_Toggleable>
               child: child,
             );
           },
-          child: AnimatedBuilder(
-            animation: _heightFactor,
-            builder: (context, child) {
-              return ClipRect(
-                child: Align(
-                  alignment: Alignment.topCenter,
-                  heightFactor: _heightFactor.value,
-                  child: child,
-                ),
-              );
-            },
+          child: SizeTransition(
+            sizeFactor: _heightFactor,
+            axisAlignment: -1,
             child: widget.child,
           ),
         ),

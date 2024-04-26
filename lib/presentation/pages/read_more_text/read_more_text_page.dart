@@ -28,7 +28,7 @@ class ReadMoreTextPage extends StatelessWidget {
           child: Column(
             children: [
               ReadMoreText(
-                'あいうえお' * 96,
+                'あいうえお' * 50,
                 minimumLines: 5,
                 overlayColor: overlayColor,
               ),
