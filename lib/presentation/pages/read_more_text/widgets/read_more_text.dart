@@ -58,23 +58,27 @@ class ReadMoreTextState extends State<ReadMoreText> {
 
   @override
   Widget build(BuildContext context) {
+    var effectiveTextStyle = widget.style;
+    if (effectiveTextStyle == null || widget.style!.inherit) {
+      effectiveTextStyle =
+          DefaultTextStyle.of(context).style.merge(widget.style);
+    }
+    if (MediaQuery.boldTextOf(context)) {
+      effectiveTextStyle = effectiveTextStyle
+          .merge(const TextStyle(fontWeight: FontWeight.bold));
+    }
+
     return LayoutBuilder(
       builder: (context, constraints) {
-        var effectiveTextStyle = widget.style;
-        if (widget.style == null || widget.style!.inherit) {
-          effectiveTextStyle =
-              DefaultTextStyle.of(context).style.merge(widget.style);
-        }
-
         final textPainter = TextPainter(
           text: TextSpan(
             text: widget.text,
             style: effectiveTextStyle,
           ),
-          locale: widget.locale,
           textAlign: widget.textAlign ?? TextAlign.start,
           textDirection: widget.textDirection ?? Directionality.of(context),
           textScaler: widget.textScaler ?? MediaQuery.textScalerOf(context),
+          locale: widget.locale,
           textHeightBehavior: widget.textHeightBehavior,
           textWidthBasis: widget.textWidthBasis,
           strutStyle: widget.strutStyle,
@@ -98,14 +102,26 @@ class ReadMoreTextState extends State<ReadMoreText> {
         );
 
         final lines = textPainter.computeLineMetrics();
+
         // 文字が minimumLines に満たない場合、「もっと見る」ボタンは非表示にする
-        if (lines.length < widget.minimumLines) {
+        if (lines.length <= widget.minimumLines) {
+          textPainter.dispose();
+
           return child;
         }
 
+        // すべてのテキストを表示した時の高さ
+        final maximumHeight = textPainter.height;
+
+        // 隠している時の高さ
+        final minimumHeight = widget.minimumLines * lines.first.height;
+
+        textPainter.dispose();
+
         return _Toggleable(
           key: _toggleableKey,
-          textPainter: textPainter,
+          maximumHeight: maximumHeight,
+          minimumHeight: minimumHeight,
           overlayColor: widget.overlayColor,
           minimumLines: widget.minimumLines,
           duration: widget.duration,
@@ -119,7 +135,8 @@ class ReadMoreTextState extends State<ReadMoreText> {
 class _Toggleable extends StatefulWidget {
   const _Toggleable({
     super.key,
-    required this.textPainter,
+    required this.maximumHeight,
+    required this.minimumHeight,
     required this.child,
     required this.overlayColor,
     required this.minimumLines,
@@ -127,7 +144,8 @@ class _Toggleable extends StatefulWidget {
   });
 
   final Widget child;
-  final TextPainter textPainter;
+  final double maximumHeight;
+  final double minimumHeight;
   final Color overlayColor;
   final int minimumLines;
   final Duration duration;
@@ -138,22 +156,18 @@ class _Toggleable extends StatefulWidget {
 
 class _ToggleableState extends State<_Toggleable>
     with SingleTickerProviderStateMixin {
-  TextPainter get textPainter => widget.textPainter;
-
   late final AnimationController _animationController;
   late final Animation<double> _heightFactor;
   late final Animation<double> _iconRotation;
-  late final Animation<double> _opacity;
+  late final Animation<double> _overlayOpacity;
 
   static final _easeTween = CurveTween(curve: Curves.easeIn);
 
-  var _isHiding = true;
-
   void _toggle() {
-    if (_isHiding) {
-      _expand();
-    } else {
+    if (_animationController.isCompleted) {
       _collapse();
+    } else {
+      _expand();
     }
   }
 
@@ -165,39 +179,14 @@ class _ToggleableState extends State<_Toggleable>
     _animationController.reverse();
   }
 
-  double _computeMinimumHeightFactor() {
-    // すべてのテキストを表示した時の高さ
-    final maximumHeight = widget.textPainter.height;
-    // 隠している時の高さ
-    final minimumHeight =
-        widget.minimumLines * textPainter.computeLineMetrics().first.height;
-
-    return 1 / (maximumHeight / minimumHeight);
-  }
-
-  void _animationStatusListener(AnimationStatus status) {
-    switch (status) {
-      case AnimationStatus.forward:
-        setState(() {
-          _isHiding = false;
-        });
-      case AnimationStatus.reverse:
-        setState(() {
-          _isHiding = true;
-        });
-      case AnimationStatus.dismissed:
-      case AnimationStatus.completed:
-    }
-  }
-
   @override
   void initState() {
     _animationController = AnimationController(
       vsync: this,
       duration: widget.duration,
-    )..addStatusListener(_animationStatusListener);
+    );
 
-    final begin = _computeMinimumHeightFactor();
+    final begin = widget.minimumHeight / widget.maximumHeight;
 
     _heightFactor = _animationController.drive(
       Tween(begin: begin, end: 1.0).chain(_easeTween),
@@ -205,7 +194,7 @@ class _ToggleableState extends State<_Toggleable>
     _iconRotation = _animationController.drive(
       Tween(begin: 0.0, end: 0.5).chain(_easeTween),
     );
-    _opacity = _animationController.drive(Tween(begin: 0, end: 1));
+    _overlayOpacity = _animationController.drive(Tween(begin: 0, end: 1));
 
     super.initState();
   }
@@ -223,7 +212,7 @@ class _ToggleableState extends State<_Toggleable>
       mainAxisSize: MainAxisSize.min,
       children: [
         AnimatedBuilder(
-          animation: _opacity,
+          animation: _overlayOpacity,
           builder: (context, child) {
             return ShaderMask(
               shaderCallback: (bounds) {
@@ -232,7 +221,7 @@ class _ToggleableState extends State<_Toggleable>
                   end: Alignment.bottomCenter,
                   colors: <Color>[
                     widget.overlayColor,
-                    widget.overlayColor.withOpacity(_opacity.value),
+                    widget.overlayColor.withOpacity(_overlayOpacity.value),
                   ],
                 ).createShader(bounds);
               },
@@ -256,9 +245,16 @@ class _ToggleableState extends State<_Toggleable>
               turns: _iconRotation,
               child: const Icon(Icons.keyboard_arrow_down),
             ),
-            label: Text(
-              _isHiding ? 'もっと見る' : '閉じる',
-              textAlign: TextAlign.center,
+            label: AnimatedBuilder(
+              animation: _animationController,
+              builder: (context, child) {
+                final text = switch (_animationController.status) {
+                  AnimationStatus.completed || AnimationStatus.forward => '閉じる',
+                  _ => 'もっと見る',
+                };
+
+                return Text(text);
+              },
             ),
           ),
         ),
