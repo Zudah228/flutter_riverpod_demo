@@ -114,7 +114,10 @@ class ReadMoreTextState extends State<ReadMoreText> {
         final maximumHeight = textPainter.height;
 
         // 隠している時の高さ
-        final minimumHeight = widget.minimumLines * lines.first.height;
+        final minimumHeight = lines.take(widget.minimumLines).fold(
+              0.0,
+              (previousValue, element) => previousValue + element.height,
+            );
 
         textPainter.dispose();
 
@@ -209,7 +212,6 @@ class _ToggleableState extends State<_Toggleable>
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisSize: MainAxisSize.min,
       children: [
         AnimatedBuilder(
           animation: _overlayOpacity,
