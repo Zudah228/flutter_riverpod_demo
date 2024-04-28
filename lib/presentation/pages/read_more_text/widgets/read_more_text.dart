@@ -219,16 +219,14 @@ class _ToggleableState extends State<_Toggleable>
           animation: _overlayOpacity,
           builder: (context, child) {
             return ShaderMask(
-              shaderCallback: (bounds) {
-                return LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: <Color>[
-                    widget.overlayColor,
-                    widget.overlayColor.withOpacity(_overlayOpacity.value),
-                  ],
-                ).createShader(bounds);
-              },
+              shaderCallback: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: <Color>[
+                  widget.overlayColor,
+                  widget.overlayColor.withOpacity(_overlayOpacity.value),
+                ],
+              ).createShader,
               child: child,
             );
           },
