@@ -189,15 +189,17 @@ class _ToggleableState extends State<_Toggleable>
       duration: widget.duration,
     );
 
-    final begin = widget.minimumHeight / widget.maximumHeight;
+    final heightFactorBegin = widget.minimumHeight / widget.maximumHeight;
 
-    _heightFactor = _animationController.drive(
-      Tween(begin: begin, end: 1.0).chain(_easeTween),
-    );
-    _iconRotation = _animationController.drive(
-      Tween(begin: 0.0, end: 0.5).chain(_easeTween),
-    );
-    _overlayOpacity = _animationController.drive(Tween(begin: 0, end: 1));
+    _heightFactor = Tween(begin: heightFactorBegin, end: 1.0)
+        .chain(_easeTween)
+        .animate(_animationController);
+    _iconRotation = Tween(begin: 0.0, end: 0.5)
+        .chain(_easeTween)
+        .animate(_animationController);
+    _overlayOpacity = Tween(begin: 0.0, end: 1.0)
+        .chain(_easeTween)
+        .animate(_animationController);
 
     super.initState();
   }
