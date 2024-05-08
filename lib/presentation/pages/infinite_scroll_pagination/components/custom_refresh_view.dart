@@ -48,7 +48,6 @@ class _CustomRefreshViewState extends State<_CustomRefreshView> {
 
   @override
   Widget build(BuildContext context) {
-    print(_pagingController.value);
     return CustomRefreshIndicator(
       onRefresh: _refresh,
       triggerMode: IndicatorTriggerMode.anywhere,
@@ -66,7 +65,7 @@ class _CustomRefreshViewState extends State<_CustomRefreshView> {
             );
           }
         }
-    
+
         return Column(
           children: [
             SizeTransition(

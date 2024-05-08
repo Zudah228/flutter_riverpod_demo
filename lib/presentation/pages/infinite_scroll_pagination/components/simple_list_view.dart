@@ -15,9 +15,11 @@ class _SimpleListViewState extends State<_SimpleListView> {
   Future<void> _fetch(int pageKey) async {
     await Future<void>.delayed(const Duration(seconds: 1));
 
+    const max = 20;
     _pagingController.appendPage(
       [
-        for (var i = 1; i <= 20; i++) Todo.uuid(title: 'Todo$i'),
+        for (var i = 1; i <= max; i++)
+          Todo.uuid(title: 'Todo${i + (max * pageKey)}'),
       ],
       pageKey + 1,
     );

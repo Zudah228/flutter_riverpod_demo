@@ -13,40 +13,65 @@ class _WithRiverpodViewState extends ConsumerState<_WithRiverpodView> {
     firstPageKey: 0,
   );
 
+  Future<void> _refresh() {
+    return ref.refresh(_todoListProvider.future);
+  }
+
+  void _debugPrinter() {
+    print('nextPage:${_pagingController.value.nextPageKey}');
+  }
+
+  Future<void> _fetchMore(int page) async {
+    try {
+      await ref.read(_todoListProvider.notifier).fetchMore(page);
+    } catch (e) {}
+  }
+
   @override
   void initState() {
-    _pagingController.addPageRequestListener(
-      ref.read(_todoListProvider.notifier).fetchMore,
-    );
-
     ref.listenManual(_todoListProvider, (previous, next) {
-      _pagingController.value = next.map(
+      _pagingController.value = next.when(
         data: (data) {
+          final isFirstPage = data.length <= _TodoListNotifier.limit;
+
+          int? computeNextPageKey(int length) {
+            if (length % _TodoListNotifier.limit == 0) {
+              return length ~/ _TodoListNotifier.limit;
+            } else {
+              return null;
+            }
+          }
+
           final int? nextPageKey;
-          if (previous?.value?.length case final previousLength?) {
-            if (previousLength == data.value.length ||
-                data.value.length ~/ _TodoListNotifier.limit ==
-                    previousLength ~/ _TodoListNotifier.limit) {
+
+          final previousValue = previous?.valueOrNull;
+          // 初回取得
+          if (isFirstPage || previousValue == null) {
+            nextPageKey = computeNextPageKey(data.length);
+          } else {
+            if (!next.isLoading && previousValue.length == data.length) {
               nextPageKey = null;
             } else {
-              nextPageKey = data.value.length ~/ _TodoListNotifier.limit;
+              nextPageKey = computeNextPageKey(data.length);
             }
-          } else {
-            nextPageKey = data.value.length ~/ _TodoListNotifier.limit;
           }
 
           return PagingState(
-            itemList: data.value,
+            itemList: data,
             nextPageKey: nextPageKey,
           );
         },
-        error: (e) => PagingState(
+        error: (e, _) => PagingState(
           error: e,
           nextPageKey: _pagingController.nextPageKey,
         ),
-        loading: (_) => const PagingState(),
+        loading: () => const PagingState(),
       );
     });
+
+    _pagingController
+      ..addPageRequestListener(_fetchMore)
+      ..addListener(_debugPrinter);
     super.initState();
   }
 
@@ -59,8 +84,9 @@ class _WithRiverpodViewState extends ConsumerState<_WithRiverpodView> {
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
-      onRefresh: () => ref.refresh(_todoListProvider.future),
+      onRefresh: _refresh,
       child: CustomScrollView(
+        cacheExtent: 0,
         slivers: [
           SliverPadding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -78,6 +104,7 @@ class _WithRiverpodViewState extends ConsumerState<_WithRiverpodView> {
               },
             ),
           ),
+          const SliverSafeArea(sliver: SliverToBoxAdapter()),
         ],
       ),
     );
@@ -90,7 +117,7 @@ final _todoListProvider =
 );
 
 class _TodoListNotifier extends AutoDisposeAsyncNotifier<List<Todo>> {
-  static int limit = 10;
+  static int limit = 15;
   @override
   FutureOr<List<Todo>> build() {
     return ref.watch(todoRepositoryProvider).list(limit: limit);
