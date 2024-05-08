@@ -17,14 +17,20 @@ class TodoRepository {
     final start = limit * page;
     final end = limit * (page + 1);
 
+    final List<Todo> list;
+
     if (start > _pseudoList.length) {
-      return [];
+      list = [];
+    } else {
+      list = _pseudoList.sublist(start, min(end, _pseudoList.length));
     }
 
-    return _pseudoList.sublist(start, min(end, _pseudoList.length));
+    print(list.map((e) => e.toStringShort()));
+
+    return list;
   }
 
   static final _pseudoList = [
-    for (var i = 1; i <= 24; i++) Todo.uuid(title: 'Todo$i'),
+    for (var i = 1; i <= 100; i++) Todo.uuid(title: 'Todo$i'),
   ];
 }

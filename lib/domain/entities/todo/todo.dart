@@ -20,4 +20,13 @@ class Todo {
 
   @override
   int get hashCode => id.hashCode;
+
+  @override
+  String toString() {
+    return 'Todo(id:$id, title:$title)';
+  }
+
+  String toStringShort() {
+    return 'Todo(title:$title)';
+  }
 }
