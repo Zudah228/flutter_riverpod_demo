@@ -4,6 +4,7 @@ import '../async_value/async_value_page.dart';
 import '../button_style_button/button_style_button_page.dart';
 import '../counter/counter_page.dart';
 import '../custom_refresh_indicator/custom_refresh_indicator_page.dart';
+import '../flexible_scroll/flexible_scroll_page.dart';
 import '../focus_node/focus_node_page.dart';
 import '../fractionally_widget/fractionally_widget_page.dart';
 import '../game_record/game_record_page.dart';
@@ -92,6 +93,11 @@ class _HomePageState extends State<HomePage> {
         title: 'FocusNode',
         description: 'FocusNode 全部みたい',
         route: FocusNodePage.route,
+      ),
+      (
+        title: 'Flexible/Scroll',
+        description: 'Scrollable の中で Flexible 使いたい',
+        route: FlexibleScrollPage.route,
       ),
     ].reversed.toList();
 
