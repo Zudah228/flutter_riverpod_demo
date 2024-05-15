@@ -137,7 +137,7 @@ class _GameRecordPageState extends State<GameRecordPage> {
                   const SizedBox(height: 24),
                   FilledButton(
                     style: const ButtonStyle(
-                      minimumSize: MaterialStatePropertyAll(
+                      minimumSize: WidgetStatePropertyAll(
                         Size.fromHeight(56),
                       ),
                     ),

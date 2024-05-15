@@ -176,7 +176,7 @@ class MiniMapInteractiveViewerState extends State<MiniMapInteractiveViewer> {
             clipBehavior: Clip.antiAlias,
             padding: const EdgeInsets.all(8),
             decoration: ShapeDecoration(
-              color: colorScheme.background,
+              color: colorScheme.surface,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8),
                 side: BorderSide(

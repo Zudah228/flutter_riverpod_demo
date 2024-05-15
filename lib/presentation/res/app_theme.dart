@@ -29,7 +29,10 @@ class AppTheme {
     final seedColor = const ColorScheme.light().primary;
 
     return _base(
-      ColorScheme.fromSeed(seedColor: seedColor),
+      ColorScheme.fromSeed(
+        seedColor: seedColor,
+        
+      ),
     );
   }
 
@@ -37,7 +40,9 @@ class AppTheme {
     final seedColor = const ColorScheme.dark().primary;
 
     return _base(
-      ColorScheme.fromSeed(seedColor: seedColor),
+      ColorScheme.fromSeed(
+        seedColor: seedColor,
+      ),
     );
   }
 }

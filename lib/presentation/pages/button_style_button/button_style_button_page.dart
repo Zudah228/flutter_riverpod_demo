@@ -17,7 +17,7 @@ class ButtonStyleButtonPage extends StatefulWidget {
 }
 
 class _ButtonStyleButtonPageState extends State<ButtonStyleButtonPage> {
-  final _outlinedButtonStateController = MaterialStatesController();
+  final _outlinedButtonStateController = WidgetStatesController();
   VoidCallback get _emptyCallback => () {};
   late VoidCallback? onPressed = _emptyCallback;
   var _selected = true;
@@ -76,7 +76,7 @@ class _ButtonStyleButtonPageState extends State<ButtonStyleButtonPage> {
                 ),
                 FilledButton(
                   style: ButtonStyle(
-                    minimumSize: const MaterialStatePropertyAll(
+                    minimumSize: const WidgetStatePropertyAll(
                       Size(double.infinity, 40),
                     ),
                     visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -94,9 +94,8 @@ class _ButtonStyleButtonPageState extends State<ButtonStyleButtonPage> {
                         },
                   selected: _selected,
                   style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.resolveWith((states) {
-                      if (states.contains(MaterialState.selected)) {
+                    backgroundColor: WidgetStateProperty.resolveWith((states) {
+                      if (states.contains(WidgetState.selected)) {
                         return (themeData.filledButtonTheme.style ??
                                 defaultFilledButtonStyle)
                             .backgroundColor
@@ -108,9 +107,8 @@ class _ButtonStyleButtonPageState extends State<ButtonStyleButtonPage> {
                           .backgroundColor
                           ?.resolve(states);
                     }),
-                    foregroundColor:
-                        MaterialStateProperty.resolveWith((states) {
-                      if (states.contains(MaterialState.selected)) {
+                    foregroundColor: WidgetStateProperty.resolveWith((states) {
+                      if (states.contains(WidgetState.selected)) {
                         return (themeData.filledButtonTheme.style ??
                                 defaultFilledButtonStyle)
                             .foregroundColor
@@ -132,10 +130,10 @@ class _ButtonStyleButtonPageState extends State<ButtonStyleButtonPage> {
                       : () {
                           setState(() {
                             final removed = _outlinedButtonStateController.value
-                                .remove(MaterialState.selected);
+                                .remove(WidgetState.selected);
                             if (!removed) {
                               _outlinedButtonStateController.value
-                                  .add(MaterialState.selected);
+                                  .add(WidgetState.selected);
                             }
                           });
                         },
@@ -191,12 +189,12 @@ class ToggleOutlinedButton extends StatefulWidget {
 }
 
 class _ToggleOutlinedButtonState extends State<ToggleOutlinedButton> {
-  late final MaterialStatesController _materialStateController;
+  late final WidgetStatesController _materialStateController;
 
   @override
   void initState() {
-    _materialStateController = MaterialStatesController(
-      widget.selected ? {MaterialState.selected} : null,
+    _materialStateController = WidgetStatesController(
+      widget.selected ? {WidgetState.selected} : null,
     );
     super.initState();
   }
@@ -212,9 +210,9 @@ class _ToggleOutlinedButtonState extends State<ToggleOutlinedButton> {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.selected != widget.selected) {
       if (widget.selected) {
-        _materialStateController.value.add(MaterialState.selected);
+        _materialStateController.value.add(WidgetState.selected);
       } else {
-        _materialStateController.value.remove(MaterialState.selected);
+        _materialStateController.value.remove(WidgetState.selected);
       }
     }
   }

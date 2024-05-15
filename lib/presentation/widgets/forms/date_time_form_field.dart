@@ -295,7 +295,7 @@ class _BlockState extends State<_Block> {
     return MenuAnchor(
       controller: _menuController,
       style: const MenuStyle(
-        padding: MaterialStatePropertyAll(EdgeInsets.zero),
+        padding: WidgetStatePropertyAll(EdgeInsets.zero),
       ),
       menuChildren: menuValues.map((e) {
         return _MenuItem<int>(
