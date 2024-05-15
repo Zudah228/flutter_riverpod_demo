@@ -24,7 +24,7 @@ class _WithRiverpodViewState extends ConsumerState<_WithRiverpodView> {
   Future<void> _fetchMore(int page) async {
     try {
       await ref.read(_todoListProvider.notifier).fetchMore(page);
-    } catch (e) {}
+    } catch (_) {}
   }
 
   @override
