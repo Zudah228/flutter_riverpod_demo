@@ -9,6 +9,7 @@ import '../focus_node/focus_node_page.dart';
 import '../fractionally_widget/fractionally_widget_page.dart';
 import '../game_record/game_record_page.dart';
 import '../infinite_scroll_pagination/infinite_scroll_pagination_page.dart';
+import '../inline_span/inline_span_page.dart';
 import '../qreki/qreki_page.dart';
 import '../reactive_forms/reactive_forms_page.dart';
 import '../read_more_text/read_more_text_page.dart';
@@ -98,6 +99,11 @@ class _HomePageState extends State<HomePage> {
         title: 'Flexible/Scroll',
         description: 'Scrollable の中で Flexible 使いたい',
         route: FlexibleScrollPage.route,
+      ),
+      (
+        title: 'InlineSpan',
+        description: 'InlineSpan と RichText の深掘り',
+        route: InlineSpanPage.route,
       ),
     ].reversed.toList();
 
