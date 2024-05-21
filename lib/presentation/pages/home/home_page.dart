@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../animated_bottom_navigation_bar/animated_bottom_navigation_bar_page.dart';
 import '../async_value/async_value_page.dart';
 import '../button_style_button/button_style_button_page.dart';
 import '../counter/counter_page.dart';
@@ -104,6 +105,11 @@ class _HomePageState extends State<HomePage> {
         title: 'InlineSpan',
         description: 'InlineSpan と RichText の深掘り',
         route: InlineSpanPage.route,
+      ),
+      (
+        title: 'BottomAppBar',
+        description: 'BottomAppBar の Notch 触る',
+        route: AnimatedBottomNavigationBarPage.route,
       ),
     ].reversed.toList();
 

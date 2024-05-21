@@ -22,6 +22,9 @@ class AppTheme {
         tileColor: colorScheme.primaryContainer,
         textColor: colorScheme.onPrimaryContainer,
       ),
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        backgroundColor: colorScheme.primary,
+      ),
     );
   }
 
@@ -31,7 +34,6 @@ class AppTheme {
     return _base(
       ColorScheme.fromSeed(
         seedColor: seedColor,
-        
       ),
     );
   }
