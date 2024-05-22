@@ -16,7 +16,50 @@ class InlineSpanPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: const Center(child: Text('InlineSpanPage')),
+      body: const Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text.rich(
+            TextSpan(
+              children: [
+                WidgetSpan(
+                  child: Text(
+                    'あああ',
+                    style: TextStyle(backgroundColor: Colors.blue),
+                  ),
+                ),
+                WidgetSpan(
+                  child: ColoredBox(
+                    color: Colors.blue,
+                    child: Icon(Icons.home),
+                  ),
+                ),
+                TextSpan(
+                  text: 'あああああ',
+                  style: TextStyle(backgroundColor: Colors.blue),
+                ),
+              ],
+            ),
+          ),
+          Row(
+            children: [
+              Icon(Icons.home),
+              Text(
+                'あああ',
+                style: TextStyle(
+                  backgroundColor: Colors.blue,
+                  height: 1,
+                  textBaseline: TextBaseline.alphabetic,
+                ),
+                textHeightBehavior: TextHeightBehavior(
+                  applyHeightToFirstAscent: false,
+                  applyHeightToLastDescent: false,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
