@@ -16,13 +16,31 @@ class FocusNodePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: const SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Center(
           child: Padding(
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
               horizontal: 24,
             ),
-            child: MyWidget(),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                FilledButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute<void>(
+                        builder: (_) => Scaffold(
+                          appBar: AppBar(),
+                        ),
+                      ),
+                    );
+                  },
+                  child: const Text('画面遷移'),
+                ),
+                const SizedBox(height: 24),
+                const MyWidget(),
+              ],
+            ),
           ),
         ),
       ),
