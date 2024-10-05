@@ -151,7 +151,6 @@
       "class ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/} extends StatefulWidget {",
       "  const ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}({super.key});",
       "",
-      "",
       "  @override",
       "  State<StatefulWidget> createState() => _${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}State();",
       "}",
