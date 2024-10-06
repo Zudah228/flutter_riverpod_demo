@@ -6,6 +6,7 @@ import '../button_style_button/button_style_button_page.dart';
 import '../carousel/carousel_page.dart';
 import '../counter/counter_page.dart';
 import '../custom_refresh_indicator/custom_refresh_indicator_page.dart';
+import '../disable_form_button/disable_form_button_page.dart';
 import '../flexible_scroll/flexible_scroll_page.dart';
 import '../focus_node/focus_node_page.dart';
 import '../fractionally_widget/fractionally_widget_page.dart';
@@ -116,6 +117,11 @@ class _HomePageState extends State<HomePage> {
         title: 'Carousel',
         description: 'Carousel の様々な実現方法を試す',
         route: CarouselPage.route,
+      ),
+      (
+        title: 'ボタン非活性',
+        description: 'フォームボタン非活性',
+        route: DisableFormButtonPage.route,
       ),
     ].reversed.toList();
 
