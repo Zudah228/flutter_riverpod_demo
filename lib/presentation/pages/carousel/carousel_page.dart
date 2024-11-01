@@ -35,7 +35,7 @@ class CarouselPage extends StatelessWidget {
               },
             ),
             ExpandableCarousel(
-              options: CarouselOptions(
+              options: ExpandableCarouselOptions(
                 autoPlay: true,
               ),
               items: SimpleBox.colors.indexed.map((e) {
