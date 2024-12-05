@@ -12,6 +12,8 @@ dependencies:
 
   # Architecture
   flutter_riverpod: ^2.4.5
+  flutter_hooks: 
+    path: ../../flutter_hooks/packages/flutter_hooks
 
   # JSON
   json_annotation: ^4.8.1

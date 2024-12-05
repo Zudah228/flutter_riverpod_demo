@@ -2,6 +2,27 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
+class BirdViewPage extends StatelessWidget {
+  const BirdViewPage._();
+
+  static const routeName = '/';
+
+  static Route<void> route() {
+    return MaterialPageRoute(
+      settings: const RouteSettings(name: routeName),
+      builder: (_) => const BirdViewPage._(),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(),
+      body: const Center(child: Text('BirdViewPage')),
+    );
+  }
+}
+
 const double _kMinimapScale = 0.3;
 const double _kDefaultMaxScale = 3;
 
@@ -170,29 +191,26 @@ class MiniMapInteractiveViewerState extends State<MiniMapInteractiveViewer> {
           top: 16,
           left: 16,
         ),
-        // !バードビューは現状非表示
-        child: Offstage(
-          child: Container(
-            clipBehavior: Clip.antiAlias,
-            padding: const EdgeInsets.all(8),
-            decoration: ShapeDecoration(
-              color: colorScheme.surface,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-                side: BorderSide(
-                  color: colorScheme.outline,
-                ),
+        child: Container(
+          clipBehavior: Clip.antiAlias,
+          padding: const EdgeInsets.all(8),
+          decoration: ShapeDecoration(
+            color: colorScheme.surface,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+              side: BorderSide(
+                color: colorScheme.outline,
               ),
             ),
-            child: SizedBox(
-              width: viewerSize.width * _kMinimapScale,
-              height: viewerSize.height * _kMinimapScale,
-              child: _Minimap(
-                key: _minimapKey,
-                viewerMatrix: _viewerMatrix,
-                viewerSize: viewerSize,
-                child: widget.child,
-              ),
+          ),
+          child: SizedBox(
+            width: viewerSize.width * _kMinimapScale,
+            height: viewerSize.height * _kMinimapScale,
+            child: _Minimap(
+              key: _minimapKey,
+              viewerMatrix: _viewerMatrix,
+              viewerSize: viewerSize,
+              child: widget.child,
             ),
           ),
         ),

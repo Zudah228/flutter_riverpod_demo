@@ -17,6 +17,8 @@ import '../qreki/qreki_page.dart';
 import '../reactive_forms/reactive_forms_page.dart';
 import '../read_more_text/read_more_text_page.dart';
 import '../reorderable_list/reorderable_list_page.dart';
+import '../scrollable_padding/scrollable_padding_page.dart';
+import '../tap_region/tap_region_page.dart';
 import '../text_editing_value/text_editing_value_page.dart';
 import '../text_painter/text_painter_page.dart';
 import '../todo/todo_page.dart';
@@ -122,6 +124,16 @@ class _HomePageState extends State<HomePage> {
         title: 'ボタン非活性',
         description: 'フォームボタン非活性',
         route: DisableFormButtonPage.route,
+      ),
+      (
+        title: 'スクロールの余白',
+        description: '',
+        route: ScrollablePaddingPage.route,
+      ),
+      (
+        title: 'TapRegion',
+        description: '',
+        route: TapRegionPage.route,
       ),
     ].reversed.toList();
 
