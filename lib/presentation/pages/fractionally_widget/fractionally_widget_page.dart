@@ -43,6 +43,8 @@ class FractionallyWidgetPage extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 100),
+              const Text('FractionallySizedBox'),
+              const SizedBox(height: 16),
               ColoredBox(
                 color: Colors.grey[300]!,
                 child: const _SizedRowBox(
@@ -67,7 +69,7 @@ class FractionallyWidgetPage extends StatelessWidget {
                     _SizedBox(color: Colors.indigo),
                     Expanded(
                       child: FractionallySizedBox(
-                        widthFactor: 0.25,
+                        widthFactor: 0.5,
                         alignment: Alignment.centerLeft,
                         child: _SizedBox(
                           color: Colors.green,

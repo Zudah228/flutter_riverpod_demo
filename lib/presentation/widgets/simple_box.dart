@@ -11,7 +11,17 @@ class SimpleBox extends StatefulWidget {
     return SimpleBox(index: index);
   }
 
-  static Widget infiniteItemBuilder(BuildContext context, int index, int realIndex) {
+  static List<Widget> get items {
+    return [
+      for (var i = 0; i < 10; i++) SimpleBox(index: i),
+    ];
+  }
+
+  static Widget infiniteItemBuilder(
+    BuildContext context,
+    int index,
+    int realIndex,
+  ) {
     return SimpleBox(index: index);
   }
 

@@ -8,6 +8,7 @@ import '../counter/counter_page.dart';
 import '../custom_refresh_indicator/custom_refresh_indicator_page.dart';
 import '../disable_form_button/disable_form_button_page.dart';
 import '../flexible_scroll/flexible_scroll_page.dart';
+import '../flutter_hooks/flutter_hooks_page.dart';
 import '../focus_node/focus_node_page.dart';
 import '../fractionally_widget/fractionally_widget_page.dart';
 import '../game_record/game_record_page.dart';
@@ -18,6 +19,7 @@ import '../reactive_forms/reactive_forms_page.dart';
 import '../read_more_text/read_more_text_page.dart';
 import '../reorderable_list/reorderable_list_page.dart';
 import '../scrollable_padding/scrollable_padding_page.dart';
+import '../shrink_wrap_page_view/shrink_wrap_page_view_page.dart';
 import '../tap_region/tap_region_page.dart';
 import '../text_editing_value/text_editing_value_page.dart';
 import '../text_painter/text_painter_page.dart';
@@ -134,6 +136,16 @@ class _HomePageState extends State<HomePage> {
         title: 'TapRegion',
         description: '',
         route: TapRegionPage.route,
+      ),
+      (
+        title: 'ShrinkWrapPageView',
+        description: '',
+        route: ShrinkWrapPageViewPage.route,
+      ),
+      (
+        title: 'FlutterHooksPage',
+        description: '',
+        route: FlutterHooksPage.route,
       ),
     ].reversed.toList();
 
