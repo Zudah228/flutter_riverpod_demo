@@ -224,7 +224,7 @@ class _ToggleableState extends State<_Toggleable>
                 end: Alignment.bottomCenter,
                 colors: <Color>[
                   widget.overlayColor,
-                  widget.overlayColor.withOpacity(_overlayOpacity.value),
+                  widget.overlayColor.withAlpha(255 ~/ _overlayOpacity.value),
                 ],
               ).createShader,
               child: child,
