@@ -14,6 +14,7 @@ import '../fractionally_widget/fractionally_widget_page.dart';
 import '../game_record/game_record_page.dart';
 import '../infinite_scroll_pagination/infinite_scroll_pagination_page.dart';
 import '../inline_span/inline_span_page.dart';
+import '../min_flex/min_flex_page.dart';
 import '../qreki/qreki_page.dart';
 import '../reactive_forms/reactive_forms_page.dart';
 import '../read_more_text/read_more_text_page.dart';
@@ -146,6 +147,11 @@ class _HomePageState extends State<HomePage> {
         title: 'FlutterHooksPage',
         description: '',
         route: FlutterHooksPage.route,
+      ),
+      (
+        title: 'Flexible と MainAxisSize.min',
+        description: '',
+        route: MinFlexPage.route
       ),
     ].reversed.toList();
 
