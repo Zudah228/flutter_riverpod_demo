@@ -12,6 +12,7 @@ linter:
 
     prefer_relative_imports: true
     prefer_const_constructors: true
+    require_trailing_commas: true
     always_use_package_imports: false
     sort_pub_dependencies: false
 
@@ -25,3 +26,6 @@ linter:
 
 # Additional information about this file can be found at
 # https://dart.dev/guides/language/analysis-options
+
+formatter:
+  trailing_commas: preserve

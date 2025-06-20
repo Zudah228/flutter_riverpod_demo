@@ -8,21 +8,12 @@
       "name": "flutter_riverpod_demo",
       "request": "launch",
       "type": "dart",
-      "args": ["--dart-define-from-file=dart_defines/env.json"]
     },
     {
-      "name": "flutter_riverpod_demo (profile mode)",
+      "name": "flutter_riverpod_demo (env)",
       "request": "launch",
       "type": "dart",
-      "flutterMode": "profile",
       "args": ["--dart-define-from-file=dart_defines/env.json"]
     },
-    {
-      "name": "flutter_riverpod_demo (release mode)",
-      "request": "launch",
-      "type": "dart",
-      "flutterMode": "release",
-      "args": ["--dart-define-from-file=dart_defines/env.json"]
-    }
   ]
 }
